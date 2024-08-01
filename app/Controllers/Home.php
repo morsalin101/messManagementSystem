@@ -6,10 +6,19 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('admin/partials/header')
-        .view('admin/partials/top')
-        .view('admin/partials/sidebar')
-         .view('admin/index')
-         .view('admin/partials/footer');
+        
+        
+         return view('partials/header')
+        .view('partials/top')
+        .view('partials/sidebar')
+         .view('index')
+         .view('partials/footer');
+    }
+    public function login(): string
+    {
+        return view('partials/header')
+        .view('auth/login')
+        .view('partials/footer');
+        
     }
 }
