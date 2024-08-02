@@ -6,5 +6,9 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->match(['GET','POST'],'/login', 'UserController::login');
+$routes->match(['GET','POST'],'login', 'UserController::login');
 $routes->get('logout', 'UserController::logout');
+$routes->get('dashboard', 'UserController::dashboard');
+$routes->match(['GET','POST'],'members', 'UserController::members');
+$routes->get('get-members', 'UserController::getMembers');
+$routes->match(['POST','PUT','DELETE'],'ajax/(:any)', 'UserController::ajax/$1');

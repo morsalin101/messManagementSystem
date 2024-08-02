@@ -86,10 +86,9 @@
                     type: 'POST',
                     data: JSON.stringify(data),
                     success: function(response) {
-                        // Handle successful response
-                        console.log('Login successful:', response);
+                    
                         // Redirect or show success message
-                        // window.location.href = "<?= base_url('dashboard') ?>";
+                         window.location.href = "<?= base_url('dashboard') ?>";
                     },
                     error: function(xhr, status, error) {
                         // Handle error response

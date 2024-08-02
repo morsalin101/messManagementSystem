@@ -17,7 +17,7 @@ class UserModel extends Model
    
    public function login($email=null,$pass=null){
 
-      if($this->where(['email'=>$email,'pass'=>$pass])->countAllResults()==1) return 1;
+      if($this->where(['email'=>$email,'password'=>$pass])->countAllResults()==1) return 1;
       return -1;
 
    }

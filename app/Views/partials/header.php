@@ -7,16 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Majestic Admin</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="<?= base_url()?>/public/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="<?= base_url()?>/public/vendors/base/vendor.bundle.base.css">
+  <link rel="stylesheet" href="<?= base_url()?>public/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="<?= base_url()?>public/vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
-  <link rel="stylesheet" href="<?= base_url()?>/public/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="<?= base_url()?>public/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="<?= base_url()?>/public/css/style.css">
+  <link rel="stylesheet" href="<?= base_url()?>public/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="<?= base_url()?>/public/images/favicon.png" />
+  <link rel="shortcut icon" href="<?= base_url()?>public/images/favicon.png" />
 </head>
 <body>
 <div class="container-scroller">
