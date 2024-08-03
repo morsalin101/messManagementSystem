@@ -14,6 +14,21 @@
                 <span class="menu-title">Members</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="<?= base_url('Meal')?>" aria-expanded="false" aria-controls="ui-basic">
+                <i class="mdi mdi-food-fork-drink menu-icon"></i>
+                <span class="menu-title">Meal</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="<?= base_url('money')?>" aria-expanded="false" aria-controls="ui-basic">
+                <i class="mdi mdi-coin menu-icon"></i>
+                <span class="menu-title">Money</span>
+            </a>
+        </li>
+
+
+        
        
     </ul>
 </nav>

@@ -49,8 +49,14 @@
 
 <body>
     <div class="alert" id="notification"></div>
-    <div class="container-fluid full-height">
-        <div class="col-md-12 stretch-card full-height no-padding">
+
+    <div class="main-panel">        
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                <div class="col-md-12 stretch-card full-height no-padding">
             <div class="card full-width full-height no-padding">
                 <div class="card-header">
                     <h4 class="card-title"><?= $page_title ?></h4>
@@ -84,8 +90,18 @@
                 </div>
             </div>
         </div>
+
+ 
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     
+      </div>
         <!-- content-wrapper ends -->
-    </div>
+    
     <!-- container-fluid -->
 
     <!-- Modal -->
