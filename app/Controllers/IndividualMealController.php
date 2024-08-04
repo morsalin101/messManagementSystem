@@ -18,9 +18,10 @@ class IndividualMealController extends BaseController
         
             // Fetch the current date
             $currentDate = date('Y-m-d');
+           
         
             // Fetch all meals for today
-            $meals = $individualMealModel->where('date', $currentDate)->findAll();
+            $meals = $individualMealModel->findAll();
         
             // Initialize an array to hold the combined data
             $combinedData = [];
@@ -36,27 +37,28 @@ class IndividualMealController extends BaseController
                     $combinedData[] = $meal;
                 }
             }
+           
         
             // Return the combined data as JSON
             return $this->response->setJSON($combinedData);
         }
         
 
-        if ($method == 'check-meal-today') {
-            $mealModel = new IndividualMealModel();
-            $id = $this->request->getVar('id');
-            $userModel = new UserModel();
-            $userData = $userModel->where('id', $id)->first();
-            $uuid = $userData['uuid'];
-            $currentDate = date('Y-m-d');
-            $meal = $mealModel->where('member_uuid', $uuid)->where('date', $currentDate)->first();
+        // if ($method == 'check-meal-today') {
+        //     $mealModel = new IndividualMealModel();
+        //     $id = $this->request->getVar('id');
+        //     $userModel = new UserModel();
+        //     $userData = $userModel->where('id', $id)->first();
+        //     $uuid = $userData['uuid'];
+        //     $currentDate = date('Y-m-d');
+        //     $meal = $mealModel->where('member_uuid', $uuid)->where('date', $currentDate)->first();
 
-            if ($meal) {
-                return $this->response->setJSON(['exists' => true]);
-            } else {
-                return $this->response->setJSON(['exists' => false]);
-            }
-        }
+        //     if ($meal) {
+        //         return $this->response->setJSON(['exists' => true]);
+        //     } else {
+        //         return $this->response->setJSON(['exists' => false]);
+        //     }
+        // }
     
         if ($method == 'add-meal') {
             $mealModel = new MealModel();

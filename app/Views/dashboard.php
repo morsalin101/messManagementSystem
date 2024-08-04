@@ -32,9 +32,9 @@
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="bi bi-cash-stack fa-3x text-primary"></i>
+                            <i class="fa-solid fa-money-bill fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Today Deposite</p>
+                                <p class="mb-2">Total Deposite</p>
                                 <h6 class="mb-0">1234৳</h6>
                             </div>
                         </div>
@@ -54,17 +54,17 @@
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa-solid fa-bowl-food fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Today Meal</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <p class="mb-2">Your Count Meal</p>
+                                <h6 class="mb-0">0</h6>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                            <i class="fa-solid fa-chart-simple fa-3x text-primary"></i> 
                             <div class="ms-3">
-                                <p class="mb-2">Total Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <p class="mb-2">Meal Rate</p>
+                                <h6 class="mb-0">1234৳</h6>
                             </div>
                         </div>
                     </div>

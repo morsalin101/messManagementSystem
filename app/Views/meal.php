@@ -121,65 +121,73 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        // Fetch all members
-        function fetchMembers() {
-            $.ajax({
-                url: 'get-members',
-                method: 'GET',
-                success: function(response) {
-                    displayMembers(response);
-                },
-                error: function() {
-                    showNotification('Failed to fetch members.', 'danger');
-                }
-            });
-        }
+$(document).ready(function() {
+    // Fetch all members
+    function fetchMembers() {
+        $.ajax({
+            url: 'get-members',
+            method: 'GET',
+            success: function(response) {
+                displayMembers(response);
+            },
+            error: function() {
+                showNotification('Failed to fetch members.', 'danger');
+            }
+        });
+    }
 
-        // Fetch today's meals
-        function fetchTodaysMeals() {
-            $.ajax({
-                url: 'individual-meal/ajax/get-todays-meals',
-                method: 'GET',
-                success: function(response) {
-                    displayTodaysMeals(response);
-                },
-                error: function() {
-                    showNotification('Failed to fetch today\'s meals.', 'danger');
-                }
-            });
-        }
+    // Fetch today's meals
+    function fetchTodaysMeals() {
+        $.ajax({
+            url: 'individual-meal/ajax/get-todays-meals',
+            method: 'GET',
+            success: function(response) {
+                displayTodaysMeals(response);
+            },
+            error: function() {
+                showNotification('Failed to fetch today\'s meals.', 'danger');
+            }
+        });
+    }
 
-        // Display members in table
-        function displayMembers(members) {
-            var membersTable = $('#membersTable');
-            membersTable.empty(); // Clear existing rows
+    // Display members in table
+    function displayMembers(members) {
+        var membersTable = $('#membersTable');
+        membersTable.empty(); // Clear existing rows
 
-            members.forEach(function(member) {
-                var row = '<tr>' +
-                              '<td>' + member.name + '</td>' +
-                              '<td>' + member.email + '</td>' +
-                              '<td>' + member.phone + '</td>' +
-                              '<td>' +
-                                  '<button class="btn btn-primary btn-sm addMealButton" data-id="' + member.id + '">Add Meal</button>' +
-                              '</td>' +
-                          '</tr>';
-                membersTable.append(row);
-            });
+        members.forEach(function(member) {
+            var row = '<tr>' +
+                          '<td>' + member.name + '</td>' +
+                          '<td>' + member.email + '</td>' +
+                          '<td>' + member.phone + '</td>' +
+                          '<td>' +
+                              '<button class="btn btn-primary btn-sm addMealButton" data-id="' + member.id + '">Add Meal</button>' +
+                          '</td>' +
+                      '</tr>';
+            membersTable.append(row);
+        });
 
-            // Handle Add Meal button click
-            $('.addMealButton').click(function() {
-                var memberId = $(this).data('id');
-                checkMealForToday(memberId);
-            });
-        }
+        // Handle Add Meal button click
+        $('.addMealButton').click(function() {
+            var memberId = $(this).data('id');
+            clearMealForm();
+            $('#memberId').val(memberId);
+            $('#mealModalLabel').text('Add Meal');
+            $('#saveMealButton').text('Add Meal');
+            $('#mealModal').modal('show');
+        });
+    }
 
-        // Display today's meals in table
-        function displayTodaysMeals(meals) {
-            var todaysMealsTable = $('#todaysMealsTable');
-            todaysMealsTable.empty(); // Clear existing rows
+    // Display today's meals in table
+    function displayTodaysMeals(meals) {
+        var todaysMealsTable = $('#todaysMealsTable');
+        todaysMealsTable.empty(); // Clear existing rows
 
-            meals.forEach(function(meal) {
+        var today = new Date();
+        var todayFormatted = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+
+        meals.forEach(function(meal) {
+            if (meal.date === todayFormatted) {
                 var row = '<tr>' +
                               '<td>' + meal.name + '</td>' +
                               '<td>' + meal.date + '</td>' +
@@ -191,114 +199,95 @@
                               '</td>' +
                           '</tr>';
                 todaysMealsTable.append(row);
-            });
-
-            // Handle Edit Meal button click for today's meal
-            $('.editMealButton').click(function() {
-                var mealId = $(this).data('id');
-                var memberId = $(this).data('member-id');
-                var date = $(this).data('date');
-                var launch = $(this).data('launch');
-                var dinner = $(this).data('dinner');
-                var guest = $(this).data('guest');
-
-                $('#mealId').val(mealId);
-                $('#memberId').val(memberId);
-                $('#mealDate').val(date);
-                $('#mealLaunch').val(launch);
-                $('#mealDinner').val(dinner);
-                $('#mealGuest').val(guest);
-
-                $('#mealModalLabel').text('Edit Meal');
-                $('#saveMealButton').text('Save Changes');
-                $('#mealModal').modal('show');
-            });
-        }
-
-        // Handle form submission for adding/editing meal
-        $('#mealForm').on('submit', function(e) {
-            e.preventDefault();
-
-            var formData = {
-                id: $('#mealId').val(),
-                member_id: $('#memberId').val(),
-                date: $('#mealDate').val(),
-                launch: $('#mealLaunch').val(),
-                dinner: $('#mealDinner').val(),
-                guest: $('#mealGuest').val()
-            };
-
-            var url = formData.id ? 'individual-meal/ajax/update-meal?id=' + formData.id : 'individual-meal/ajax/add-meal?id=' + formData.member_id;
-            var method = formData.id ? 'PUT' : 'POST';
-
-            $.ajax({
-                url: url,
-                method: method,
-                contentType: 'application/json',
-                data: JSON.stringify(formData),
-                success: function(response) {
-                    $('#mealModal').modal('hide');
-                    var action = formData.id ? 'updated' : 'added';
-                    showNotification('Meal ' + action + ' successfully!', 'success');
-                    fetchMembers(); // Refresh the members list
-                    fetchTodaysMeals(); // Refresh today's meals list
-                },
-                error: function() {
-                    showNotification('Failed to save meal.', 'danger');
-                }
-            });
+            }
         });
 
-        // Check if a meal has already been added for today for the selected member
-        function checkMealForToday(memberId) {
-            $.ajax({
-                url: 'individual-meal/ajax/check-meal-today?id=' + memberId,
-                method: 'GET',
-                success: function(response) {
-                    if (response.exists) {
-                        showNotification('You have already added today\'s meal for this member.', 'warning');
-                    } else {
-                        clearMealForm();
-                        $('#memberId').val(memberId);
-                        $('#mealModalLabel').text('Add Meal');
-                        $('#saveMealButton').text('Add Meal');
-                        $('#mealModal').modal('show');
-                    }
-                },
-                error: function() {
-                    showNotification('Failed to check meal status.', 'danger');
-                }
-            });
-        }
+        // Handle Edit Meal button click for today's meal
+        $('.editMealButton').click(function() {
+            var mealId = $(this).data('id');
+            var memberId = $(this).data('member-id');
+            var date = $(this).data('date');
+            var launch = $(this).data('launch');
+            var dinner = $(this).data('dinner');
+            var guest = $(this).data('guest');
 
-        // Function to clear the meal form
-        function clearMealForm() {
-            $('#mealForm')[0].reset();
-            $('#mealId').val('');
-            $('#memberId').val('');
-            $('#mealDate').val('');
-            $('#mealLaunch').val('');
-            $('#mealDinner').val('');
-            $('#mealGuest').val('0');
-        }
+            $('#mealId').val(mealId);
+            $('#memberId').val(memberId);
+            $('#mealDate').val(date);
+            $('#mealLaunch').val(launch);
+            $('#mealDinner').val(dinner);
+            $('#mealGuest').val(guest);
 
-        // Function to show notification
-        function showNotification(message, type) {
-            var notification = $('#notification');
-            notification.removeClass();
-            notification.addClass('alert notification alert-' + type);
-            notification.text(message);
-            notification.fadeIn();
+            $('#mealModalLabel').text('Edit Meal');
+            $('#saveMealButton').text('Save Changes');
+            $('#mealModal').modal('show');
+        });
+    }
 
-            setTimeout(function() {
-                notification.fadeOut();
-            }, 2000); // 2 seconds
-        }
+    // Handle form submission for adding/editing meal
+    $('#mealForm').on('submit', function(e) {
+        e.preventDefault();
 
-        // Initial fetch of members and today's meals when the page loads
-        fetchMembers();
-        fetchTodaysMeals();
+        var formData = {
+            id: $('#mealId').val(),
+            member_id: $('#memberId').val(),
+            date: $('#mealDate').val(),
+            launch: $('#mealLaunch').val(),
+            dinner: $('#mealDinner').val(),
+            guest: $('#mealGuest').val()
+        };
+
+        var url = formData.id ? 'individual-meal/ajax/update-meal?id=' + formData.id : 'individual-meal/ajax/add-meal?id=' + formData.member_id;
+        var method = formData.id ? 'PUT' : 'POST';
+
+        $.ajax({
+            url: url,
+            method: method,
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function(response) {
+                $('#mealModal').modal('hide');
+                var action = formData.id ? 'updated' : 'added';
+                showNotification('Meal ' + action + ' successfully!', 'success');
+                fetchMembers(); // Refresh the members list
+                fetchTodaysMeals(); // Refresh today's meals list
+            },
+            error: function() {
+                showNotification('Failed to save meal.', 'danger');
+            }
+        });
     });
+
+    // Function to clear the meal form
+    function clearMealForm() {
+        $('#mealForm')[0].reset();
+        $('#mealId').val('');
+        $('#memberId').val('');
+        $('#mealDate').val('');
+        $('#mealLaunch').val('');
+        $('#mealDinner').val('');
+        $('#mealGuest').val('0');
+    }
+
+    // Function to show notification
+    function showNotification(message, type) {
+        var notification = $('#notification');
+        notification.removeClass();
+        notification.addClass('alert notification alert-' + type);
+        notification.text(message);
+        notification.fadeIn();
+
+        setTimeout(function() {
+            notification.fadeOut();
+        }, 2000); // 2 seconds
+    }
+
+    // Initial fetch of members and today's meals when the page loads
+    fetchMembers();
+    fetchTodaysMeals();
+});
+
 </script>
+
 </body>
 </html>

@@ -17,3 +17,7 @@ $routes->match(['GET','POST','PUT','DELETE'],'individual-meal/ajax/(:any)', 'Ind
 $routes->get('meal', 'MealController::meal');
 $routes->match(['GET','PUT','DELETE'],'all-meals/ajax/(:any)', 'AllMealController::ajax/$1');
 $routes->get('all-meals', 'AllMealController::allMeals');
+
+/* money route */
+$routes->get('money', 'MoneyController::money');
+$routes->match(['GET','POST','PUT','DELETE'],'money/ajax/(:any)', 'MoneyController::ajax/$1');

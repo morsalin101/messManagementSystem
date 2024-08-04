@@ -63,9 +63,9 @@
                 <div class="navbar-nav w-100">
                     <a href="<?= base_url('dashboard')?>" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                    
-                    <a href="<?= base_url('members')?>" class=" nav-item nav-link "><i class="bi bi-people"></i></i>Member</a>
-                    <a href="<?= base_url('meal')?>" class="nav-item nav-link"><i class="fa-solid fa-burger"></i>Meal</a>
-                    <a href="<?= base_url('meal')?>" class="nav-item nav-link"><i class="bi bi-cash-stack"></i>Money</a>
+                    <a href="<?= base_url('members')?>" class=" nav-item nav-link "><i class="bi bi-people"></i></i>All Member</a>
+                    <a href="<?= base_url('meal')?>" class="nav-item nav-link"><i class="fa-solid fa-burger"></i>Add Meal</a>
+                    <a href="<?= base_url('money')?>" class="nav-item nav-link"><i class="bi bi-cash-stack"></i>Deposite</a>
 
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
