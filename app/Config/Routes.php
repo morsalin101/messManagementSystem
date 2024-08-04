@@ -12,3 +12,5 @@ $routes->get('dashboard', 'UserController::dashboard');
 $routes->match(['GET','POST'],'members', 'UserController::members');
 $routes->get('get-members', 'UserController::getMembers');
 $routes->match(['POST','PUT','DELETE'],'ajax/(:any)', 'UserController::ajax/$1');
+$routes->match(['POST','PUT','DELETE','GET'],'meal/ajax/(:any)', 'MealController::ajax/$1');
+$routes->get('meal', 'MealController::meal');

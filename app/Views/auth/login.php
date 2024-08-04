@@ -2,71 +2,92 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Majestic Admin</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="<?= base_url()?>/public/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="<?= base_url()?>/public/vendors/base/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <link rel="stylesheet" href="<?= base_url()?>/public/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="<?= base_url()?>/public/css/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="<?= base_url()?>/public/images/favicon.png" />
+    <meta charset="utf-8">
+    <title>DASHMIN - Bootstrap Admin Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="<?= base_url()?>/template/public/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="<?= base_url()?>public/template/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="<?= base_url()?>public/template/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="<?= base_url()?>public/template/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="<?= base_url()?>public/template/css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container-scroller">
-        <div class="container-fluid page-body-wrapper full-page-wrapper">
-            <div class="content-wrapper d-flex align-items-center auth px-0">
-                <div class="row w-100 mx-0">
-                    <div class="col-lg-4 mx-auto">
-                        <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-                            <div class="brand-logo">
-                                <h1>Welcome To Mess Management System</h1>
-                                <!-- <img src="<?= base_url()?>/public/images/logo.svg" alt="logo"> -->
-                            </div>
-                            <h6 class="font-weight-light">Sign in to continue.</h6>
-                            <form class="pt-3" id="loginForm">
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-lg" id="email" placeholder="Username" required>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control form-control-lg" id="password" placeholder="Password" required>
-                                </div>
-                                <div class="mt-3">
-                                    <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
-                                </div>
-                                <!--
-                                <div class="my-2 d-flex justify-content-between align-items-center">
-                                    <div class="form-check">
-                                        <label class="form-check-label text-muted">
-                                            <input type="checkbox" class="form-check-input">
-                                            Keep me signed in
-                                        </label>
-                                    </div>
-                                    <a href="#" class="auth-link text-black">Forgot password?</a>
-                                </div>
-                                <div class="text-center mt-4 font-weight-light">
-                                    Don't have an account? <a href="register.html" class="text-primary">Create</a>
-                                </div>
-                                -->
-                            </form>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Sign In Start -->
+        <div class="container-fluid">
+            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+                    <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <a href="index.html" class="">
+                                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+                            </a>
+                            <h3>Sign In</h3>
                         </div>
+                        <form id="loginForm">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                                <label for="email">Email address</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="password" class="form-control" id="password" placeholder="Password" required>
+                                <label for="password">Password</label>
+                            </div>
+                           
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
+                        </form>
+                       
                     </div>
                 </div>
             </div>
-            <!-- content-wrapper ends -->
         </div>
-        <!-- page-body-wrapper ends -->
+        <!-- Sign In End -->
     </div>
-    <!-- container-scroller -->
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= base_url()?>public/template/lib/chart/chart.min.js"></script>
+    <script src="<?= base_url()?>public/template/lib/easing/easing.min.js"></script>
+    <script src="<?= base_url()?>public/template/lib/waypoints/waypoints.min.js"></script>
+    <script src="<?= base_url()?>public/template/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="<?= base_url()?>public/template/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="<?= base_url()?>public/template/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="<?= base_url()?>public/template/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="<?= base_url()?>public/template/js/main.js"></script>
+    
+    <!-- Custom JavaScript -->
     <script>
         $(document).ready(function() {
             $('#loginForm').on('submit', function(event) {
@@ -74,21 +95,20 @@
 
                 var email = $('#email').val();
                 var password = $('#password').val();
-              
 
-                var data = {};
-                data['email'] = email;
-                data['password'] = password;
-                
+                var data = {
+                    email: email,
+                    password: password
+                };
 
                 $.ajax({
                     url: "<?= base_url('login') ?>",
                     type: 'POST',
                     data: JSON.stringify(data),
+                    contentType: 'application/json',
                     success: function(response) {
-                    
                         // Redirect or show success message
-                         window.location.href = "<?= base_url('dashboard') ?>";
+                        window.location.href = "<?= base_url('dashboard') ?>";
                     },
                     error: function(xhr, status, error) {
                         // Handle error response
@@ -99,26 +119,6 @@
             });
         });
     </script>
-    <script src="<?= base_url()?>/public/vendors/base/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page-->
-    <script src="<?= base_url()?>/public/vendors/chart.js/Chart.min.js"></script>
-    <script src="<?= base_url()?>/public/vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="<?= base_url()?>/public/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-    <!-- End plugin js for this page-->
-    <!-- inject:js -->
-    <script src="<?= base_url()?>/public/js/off-canvas.js"></script>
-    <script src="<?= base_url()?>/public/js/hoverable-collapse.js"></script>
-    <script src="<?= base_url()?>/public/js/template.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="<?= base_url()?>/public/js/dashboard.js"></script>
-    <script src="<?= base_url()?>/public/js/data-table.js"></script>
-    <script src="<?= base_url()?>/public/js/jquery.dataTables.js"></script>
-    <script src="<?= base_url()?>/public/js/dataTables.bootstrap4.js"></script>
-    <!-- End custom js for this page-->
-
-    <script src="<?= base_url()?>/public/js/jquery.cookie.js" type="text/javascript"></script>
 </body>
 
 </html>

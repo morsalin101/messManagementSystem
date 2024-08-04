@@ -17,8 +17,6 @@ class UserController extends BaseController
     {
          $data['role'] = $this->session->get('role');
         return view('partials/header')
-        .view('partials/top')
-        .view('partials/sidebar',$data)
          .view('dashboard')
          .view('partials/footer');
          
@@ -75,8 +73,8 @@ class UserController extends BaseController
         $data['page_title'] = "Members";
         $data['role'] = $this->session->get('role');
 
-        return view('partials/top')
-        .view('partials/sidebar',$data)
+        return
+        view('partials/header') 
          .view('members',$data)
          .view('partials/footer');
 
