@@ -3,39 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Start a New Meal</title>
-    <!-- Include Bootstrap CSS and jQuery -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-    <style>
-        .status-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-left: 5px;
-        }
-        .status-active {
-            background-color: green;
-        }
-        .status-closed {
-            background-color: grey;
-        }
-    </style>
+    <title>Members Management</title>
+    <!-- Include jQuery and Bootstrap CSS/JS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="alert" id="notification" style="display:none;"></div>
+
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
-        <button class="btn btn-primary btn-sm" id="startMealButton">Start A New Meal</button>
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card bg-light">
                 <div class="card-body">
-                    <h4 class="card-title">Meal Information</h4>
-                    <div class="row" id="mealCards">
-                        <!-- Meal cards will be dynamically added here -->
+                    <h4 class="card-title">Members</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="membersTable">
+                                <!-- Member rows will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h4 class="card-title">Today's Meals</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <div class="row py-2">
+                            <div class="col">
+                                <h2 ></h2>
+                            </div>
+                            <div class="col-auto">
+                                <a href="<?=base_url('all-meals')?>"><button class="btn btn-info "><i class="bi bi-plus-circle"></i>CLick Here To View This Month All Meal</button></a>
+                            </div>
+                        </div>
+                                <tr>
+                                    <th>Member Name</th>
+                                    <th>Date</th>
+                                    <th>Launch</th>
+                                    <th>Dinner</th>
+                                    <th>Guest</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="todaysMealsTable">
+                                <!-- Today's meals rows will be dynamically added here -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -43,27 +73,37 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="startMealModal" tabindex="-1" aria-labelledby="startMealModalLabel" aria-hidden="true">
+<!-- Meal Modal -->
+<div class="modal fade" id="mealModal" tabindex="-1" aria-labelledby="mealModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="startMealModalLabel">Start A New Meal</h5>
+                <h5 class="modal-title" id="mealModalLabel">Add/Edit Meal</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="startMealForm">
+                <form id="mealForm">
+                    <input type="hidden" id="mealId" name="meal_id">
+                    <input type="hidden" id="memberId" name="member_id">
                     <div class="mb-3">
-                        <label for="mealTitle" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="mealTitle" name="title" required>
+                        <label for="mealDate" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="mealDate" name="date" required>
                     </div>
                     <div class="mb-3">
-                        <label for="mealDate" class="form-label">Start Date</label>
-                        <input type="text" class="form-control" id="mealDate" name="date" required>
+                        <label for="mealLaunch" class="form-label">Launch</label>
+                        <input type="text" class="form-control" id="mealLaunch" name="launch" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mealDinner" class="form-label">Dinner</label>
+                        <input type="text" class="form-control" id="mealDinner" name="dinner" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mealGuest" class="form-label">Guest</label>
+                        <input type="number" class="form-control" id="mealGuest" name="guest" value="0" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary" id="saveMealButton">Save Meal</button>
                     </div>
                 </form>
             </div>
@@ -73,110 +113,146 @@
 
 <script>
     $(document).ready(function() {
-        // Show modal on button click
-        $('#startMealButton').click(function() {
-            $('#startMealModal').modal('show');
-        });
-
-        // Handle form submission
-        $('#startMealForm').on('submit', function(e) {
-            e.preventDefault();
-
-            var formData = {
-                title: $('#mealTitle').val(),
-                date: $('#mealDate').val()
-            };
-
+        // Fetch all members
+        function fetchMembers() {
             $.ajax({
-                url: 'meal/ajax/start-meal',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(formData),
-                success: function(response) {
-                    $('#startMealModal').modal('hide');
-                    showNotification('Meal started successfully!', 'success');
-                    fetchMeals(); // Refresh the meal list
-                },
-                error: function() {
-                    showNotification('Failed to start the meal.', 'danger');
-                }
-            });
-        });
-
-        // Fetch all meals
-        function fetchMeals() {
-            $.ajax({
-                url: 'meal/ajax/get-all-meals',
+                url: 'get-members',
                 method: 'GET',
                 success: function(response) {
-                    displayMeals(response);
+                    displayMembers(response);
                 },
                 error: function() {
-                    showNotification('Failed to fetch meals.', 'danger');
+                    showNotification('Failed to fetch members.', 'danger');
                 }
             });
         }
 
-        // Display meals in cards
-        function displayMeals(meals) {
-            var mealCards = $('#mealCards');
-            mealCards.empty(); // Clear existing cards
+        // Fetch today's meals
+        function fetchTodaysMeals() {
+            $.ajax({
+                url: 'individual-meal/ajax/get-todays-meals',
+                method: 'GET',
+                success: function(response) {
+                    displayTodaysMeals(response);
+                },
+                error: function() {
+                    showNotification('Failed to fetch today\'s meals.', 'danger');
+                }
+            });
+        }
+
+        // Display members in table
+        function displayMembers(members) {
+            var membersTable = $('#membersTable');
+            membersTable.empty(); // Clear existing rows
+
+            members.forEach(function(member) {
+                var row = '<tr>' +
+                              '<td>' + member.name + '</td>' +
+                              '<td>' + member.email + '</td>' +
+                              '<td>' + member.phone + '</td>' +
+                              '<td>' +
+                                  '<button class="btn btn-primary btn-sm addMealButton" data-id="' + member.id + '">Add Meal</button>' +
+                              '</td>' +
+                          '</tr>';
+                membersTable.append(row);
+            });
+
+            // Handle Add Meal button click
+            $('.addMealButton').click(function() {
+                var memberId = $(this).data('id');
+                clearMealForm();
+                $('#memberId').val(memberId);
+                $('#mealModalLabel').text('Add Meal');
+                $('#saveMealButton').text('Add Meal');
+                $('#mealModal').modal('show');
+            });
+        }
+
+        // Display today's meals in table
+        function displayTodaysMeals(meals) {
+            var todaysMealsTable = $('#todaysMealsTable');
+            todaysMealsTable.empty(); // Clear existing rows
 
             meals.forEach(function(meal) {
-                var statusIndicator = meal.status === 'active' ? 
-                    '<span class="status-indicator status-active"></span>' : 
-                    '<span class="status-indicator status-closed"></span>';
-
-                var card = '<div class="col-md-4 mb-4">' +
-                                '<div class="card">' +
-                                    '<div class="card-body">' +
-                                        '<h5 class="card-title">' + meal.title + '</h5>' +
-                                        '<p class="card-text">Created At: ' + meal.created_at + '</p>' +
-                                        '<p class="card-text">Finished At: ' + (meal.finished_at || 'Running') + '</p>' +
-                                        '<p class="card-text">Status: ' + meal.status + statusIndicator + '</p>' +
-                                        '<button class="btn btn-danger btn-sm closeMealButton" data-id="' + meal.id + '">Close</button> ' +
-                                        '<button class="btn btn-warning btn-sm deleteMealButton" data-id="' + meal.id + '">Delete</button>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>';
-                mealCards.append(card);
+                var row = '<tr>' +
+                              '<td>' + meal.name + '</td>' +
+                              '<td>' + meal.date + '</td>' +
+                              '<td>' + meal.launch + '</td>' +
+                              '<td>' + meal.dinner + '</td>' +
+                              '<td>' + meal.guest + '</td>' +
+                              '<td>' +
+                                  '<button class="btn btn-secondary btn-sm editMealButton" data-id="' + meal.id + '" data-member-id="' + meal.member_id + '" data-date="' + meal.date + '" data-launch="' + meal.launch + '" data-dinner="' + meal.dinner + '" data-guest="' + meal.guest + '">Edit Meal</button>' +
+                              '</td>' +
+                          '</tr>';
+                todaysMealsTable.append(row);
             });
 
-            // Handle close button click
-            $('.closeMealButton').click(function() {
+            // Handle Edit Meal button click for today's meal
+            $('.editMealButton').click(function() {
                 var mealId = $(this).data('id');
+                var memberId = $(this).data('member-id');
+                var date = $(this).data('date');
+                var launch = $(this).data('launch');
+                var dinner = $(this).data('dinner');
+                var guest = $(this).data('guest');
 
-                $.ajax({
-                    url: 'meal/ajax/update-meal?id=' + mealId,
-                    method: 'PUT',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ status: 'closed' }),
-                    success: function(response) {
-                        showNotification('Meal closed successfully!', 'success');
-                        fetchMeals(); // Refresh the meal list
-                    },
-                    error: function() {
-                        showNotification('Failed to close the meal.', 'danger');
-                    }
-                });
+                $('#mealId').val(mealId);
+                $('#memberId').val(memberId);
+                $('#mealDate').val(date);
+                $('#mealLaunch').val(launch);
+                $('#mealDinner').val(dinner);
+                $('#mealGuest').val(guest);
+
+                $('#mealModalLabel').text('Edit Meal');
+                $('#saveMealButton').text('Save Changes');
+                $('#mealModal').modal('show');
             });
+        }
 
-            // Handle delete button click
-            $('.deleteMealButton').click(function() {
-                var mealId = $(this).data('id');
+        // Handle form submission for adding/editing meal
+        $('#mealForm').on('submit', function(e) {
+            e.preventDefault();
 
-                $.ajax({
-                    url: 'meal/ajax/delete-meal?id=' + mealId,
-                    method: 'DELETE',
-                    success: function(response) {
-                        showNotification('Meal deleted successfully!', 'success');
-                        fetchMeals(); // Refresh the meal list
-                    },
-                    error: function() {
-                        showNotification('Failed to delete the meal.', 'danger');
-                    }
-                });
+            var formData = {
+                id: $('#mealId').val(),
+                member_id: $('#memberId').val(),
+                date: $('#mealDate').val(),
+                launch: $('#mealLaunch').val(),
+                dinner: $('#mealDinner').val(),
+                guest: $('#mealGuest').val()
+            };
+
+            var url = formData.id ? 'individual-meal/ajax/update-meal?id=' + formData.id : 'individual-meal/ajax/add-meal?id=' + formData.member_id;
+            var method = formData.id ? 'PUT' : 'POST';
+
+            $.ajax({
+                url: url,
+                method: method,
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    $('#mealModal').modal('hide');
+                    var action = formData.id ? 'updated' : 'added';
+                    showNotification('Meal ' + action + ' successfully!', 'success');
+                    fetchMembers(); // Refresh the members list
+                    fetchTodaysMeals(); // Refresh today's meals list
+                },
+                error: function() {
+                    showNotification('Failed to save meal.', 'danger');
+                }
             });
+        });
+
+        // Function to clear the meal form
+        function clearMealForm() {
+            $('#mealForm')[0].reset();
+            $('#mealId').val('');
+            $('#memberId').val('');
+            $('#mealDate').val('');
+            $('#mealLaunch').val('');
+            $('#mealDinner').val('');
+            $('#mealGuest').val('0');
         }
 
         // Function to show notification
@@ -192,10 +268,10 @@
             }, 3000);
         }
 
-        // Initial fetch of meals when the page loads
-        fetchMeals();
+        // Initial fetch of members and today's meals when the page loads
+        fetchMembers();
+        fetchTodaysMeals();
     });
 </script>
-
 </body>
 </html>

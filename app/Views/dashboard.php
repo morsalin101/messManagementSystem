@@ -6,10 +6,9 @@
     <title>Start a New Meal</title>
     <!-- Include Bootstrap CSS and jQuery -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+   
     <style>
         .status-indicator {
             display: inline-block;
@@ -70,15 +69,6 @@
                 </div>
             </div>
             <!-- Sale & Revenue End -->
-
-
-      
-
-
-
-
-
-
 
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
