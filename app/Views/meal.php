@@ -59,7 +59,7 @@
                                 <h2 ></h2>
                             </div>
                             <div class="col-auto">
-                                <a href="<?=base_url('all-meals')?>"><button class="btn btn-info "><i class="bi bi-plus-circle"></i>Click Here To View This Month All Meal</button></a>
+                                <a href="<?=base_url('all-meals')?>"><button class="btn btn-info "><i class="fa-solid fa-list"></i> Click Here To View This Month All Meal</button></a>
                             </div>
                         </div>
                                 <tr>
@@ -170,11 +170,7 @@
             // Handle Add Meal button click
             $('.addMealButton').click(function() {
                 var memberId = $(this).data('id');
-                clearMealForm();
-                $('#memberId').val(memberId);
-                $('#mealModalLabel').text('Add Meal');
-                $('#saveMealButton').text('Add Meal');
-                $('#mealModal').modal('show');
+                checkMealForToday(memberId);
             });
         }
 
@@ -252,6 +248,28 @@
                 }
             });
         });
+
+        // Check if a meal has already been added for today for the selected member
+        function checkMealForToday(memberId) {
+            $.ajax({
+                url: 'individual-meal/ajax/check-meal-today?id=' + memberId,
+                method: 'GET',
+                success: function(response) {
+                    if (response.exists) {
+                        showNotification('You have already added today\'s meal for this member.', 'warning');
+                    } else {
+                        clearMealForm();
+                        $('#memberId').val(memberId);
+                        $('#mealModalLabel').text('Add Meal');
+                        $('#saveMealButton').text('Add Meal');
+                        $('#mealModal').modal('show');
+                    }
+                },
+                error: function() {
+                    showNotification('Failed to check meal status.', 'danger');
+                }
+            });
+        }
 
         // Function to clear the meal form
         function clearMealForm() {

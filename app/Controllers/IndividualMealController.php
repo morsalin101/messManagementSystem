@@ -15,35 +15,48 @@ class IndividualMealController extends BaseController
             // Load the models
             $individualMealModel = new IndividualMealModel();
             $userModel = new UserModel();
-    
-            // Fetch all meals
-            $meals = $individualMealModel->findAll();
-    
+        
+            // Fetch the current date
+            $currentDate = date('Y-m-d');
+        
+            // Fetch all meals for today
+            $meals = $individualMealModel->where('date', $currentDate)->findAll();
+        
             // Initialize an array to hold the combined data
             $combinedData = [];
-    
+        
             // Loop through each meal and fetch the corresponding user data
             foreach ($meals as $meal) {
                 $member_uuid = $meal['member_uuid'];
                 $user = $userModel->where('uuid', $member_uuid)->first();
-    
+        
                 // If user is found, combine the data
                 if ($user) {
                     $meal['name'] = $user['name']; // Assuming 'name' is the column in UserModel
                     $combinedData[] = $meal;
                 }
             }
-    
+        
             // Return the combined data as JSON
             return $this->response->setJSON($combinedData);
         }
+        
 
-        // if ($method == 'delete-meal') {
-        //     $mealModel = new IndividualMealModel();
-        //     $id = $this->request->getVar('id');
-        //     $mealModel->delete($id);
-        //     return $this->response->setJSON(['status' => 'success', 'message' => 'Delete Successfully']);
-        // }
+        if ($method == 'check-meal-today') {
+            $mealModel = new IndividualMealModel();
+            $id = $this->request->getVar('id');
+            $userModel = new UserModel();
+            $userData = $userModel->where('id', $id)->first();
+            $uuid = $userData['uuid'];
+            $currentDate = date('Y-m-d');
+            $meal = $mealModel->where('member_uuid', $uuid)->where('date', $currentDate)->first();
+
+            if ($meal) {
+                return $this->response->setJSON(['exists' => true]);
+            } else {
+                return $this->response->setJSON(['exists' => false]);
+            }
+        }
     
         if ($method == 'add-meal') {
             $mealModel = new MealModel();
