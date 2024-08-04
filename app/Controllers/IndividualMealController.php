@@ -38,11 +38,12 @@ class IndividualMealController extends BaseController
             return $this->response->setJSON($combinedData);
         }
 
-        if ($method == 'delete-meal') {
-            $id = $this->request->getVar('id');
-            $mealModel->delete($id);
-            return $this->response->setJSON(['status' => 'success', 'message' => 'Delete Successfully']);
-        }
+        // if ($method == 'delete-meal') {
+        //     $mealModel = new IndividualMealModel();
+        //     $id = $this->request->getVar('id');
+        //     $mealModel->delete($id);
+        //     return $this->response->setJSON(['status' => 'success', 'message' => 'Delete Successfully']);
+        // }
     
         if ($method == 'add-meal') {
             $mealModel = new MealModel();
@@ -55,15 +56,17 @@ class IndividualMealController extends BaseController
             $mealData = $mealModel->where('status', 'active')->first();
             $meal_uuid = $mealData['meal_uuid'];
             $individualMealModel = new IndividualMealModel();
+            $total = $json->launch + $json->dinner + $json->guest;
 
             $data = [
               
-                'date' => date('Y-m-d H:i:s'),
+                'date' => $json->date,
                 'launch' => $json->launch,
                 'dinner' => $json->dinner,
                 'guest' => $json->guest,
                 'meal_uuid' => $meal_uuid,
                 'member_uuid' => $uuid,
+                'total'    => $total
             ];
     
             $flag = $individualMealModel->insert($data, false);
@@ -78,13 +81,15 @@ class IndividualMealController extends BaseController
             $individualMealModel = new IndividualMealModel();
             $id = $this->request->getGet('id');
             $json = $this->request->getJSON();
+            $total = $json->launch + $json->dinner + $json->guest;
     
             $data = [
 
                 'date' => date('Y-m-d H:i:s'),
                 'launch' => $json->launch,
                 'dinner' => $json->dinner,
-                'guest' => $json->guest
+                'guest' => $json->guest,
+                'total' => $total
             ];
     
             $flag = $individualMealModel->set($data)->where('id', $id)->update();

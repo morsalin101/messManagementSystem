@@ -8,9 +8,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-<div class="alert" id="notification" style="display:none;"></div>
+<div class="alert notification" id="notification"></div>
 
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
@@ -50,7 +59,7 @@
                                 <h2 ></h2>
                             </div>
                             <div class="col-auto">
-                                <a href="<?=base_url('all-meals')?>"><button class="btn btn-info "><i class="bi bi-plus-circle"></i>CLick Here To View This Month All Meal</button></a>
+                                <a href="<?=base_url('all-meals')?>"><button class="btn btn-info "><i class="bi bi-plus-circle"></i>Click Here To View This Month All Meal</button></a>
                             </div>
                         </div>
                                 <tr>
@@ -257,15 +266,15 @@
 
         // Function to show notification
         function showNotification(message, type) {
-            var notification = $('<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' + 
-                                  message + 
-                                  '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' + 
-                                 '</div>');
-            $('body').append(notification);
+            var notification = $('#notification');
+            notification.removeClass();
+            notification.addClass('alert notification alert-' + type);
+            notification.text(message);
+            notification.fadeIn();
 
             setTimeout(function() {
-                notification.alert('close');
-            }, 3000);
+                notification.fadeOut();
+            }, 2000); // 2 seconds
         }
 
         // Initial fetch of members and today's meals when the page loads
