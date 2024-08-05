@@ -52,10 +52,14 @@
                 <div class="card-body">
                     <h4 class="card-title">Member Depositions</h4>
                     <div class="form-group">
-                        <label for="memberSelect">Select Member:</label>
+                        <div></div>
+                        <div class="float-end">
+                        <!-- <label for="memberSelect">Select Member:</label> -->
                         <select class="form-control" id="memberSelect">
                             <option value="">Select a member</option>
                         </select>
+                        </div>
+                        
                     </div>
                     <div class="table-responsive mt-3">
                         <table class="table table-bordered">
