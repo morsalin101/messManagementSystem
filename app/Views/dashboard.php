@@ -23,18 +23,31 @@
         .status-closed {
             background-color: grey;
         }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
     </style>
 </head>
 <body>
 
- <!-- Sale & Revenue Start -->
- <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
+<div class="container-fluid pt-4 px-4">
+   <div class="row g-4">
+     <!-- Sale & Revenue Start -->
+<?php if ($role == 'manager'): ?>
+    <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">This Month Summary</h4>
+                <div class="row">
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa-solid fa-money-bill fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Total Deposite</p>
+                                <p class="mb-2">Total Deposit</p>
                                 <h6 class="mb-0">1234৳</h6>
                             </div>
                         </div>
@@ -54,7 +67,7 @@
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa-solid fa-bowl-food fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Your Count Meal</p>
+                                <p class="mb-2">Count Meal</p>
                                 <h6 class="mb-0">0</h6>
                             </div>
                         </div>
@@ -70,8 +83,67 @@
                     </div>
                 </div>
             </div>
-            <!-- Sale & Revenue End -->
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 
+
+<!-- Summary End -->
+            <!-- Sale & Revenue End -->
+ <!-- Sale & Revenue Start -->
+ <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Your Summary</h4>
+                <div class="row">
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa-solid fa-money-bill fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">Total Deposit</p>
+                                <h6 class="mb-0">1234৳</h6>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa-solid fa-money-bills fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">Total Expense</p>
+                                <h6 class="mb-0">1234৳</h6>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa-solid fa-bowl-food fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">Count Meal</p>
+                                <h6 class="mb-0">0</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa-solid fa-chart-simple fa-3x text-primary"></i> 
+                            <div class="ms-3">
+                                <p class="mb-2">Meal Rate</p>
+                                <h6 class="mb-0">1234৳</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Summary End -->
+
+<?php if ($role == 'manager'): ?>
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
         <button class="btn btn-primary btn-sm" id="startMealButton">Start A New Meal</button>
@@ -86,6 +158,47 @@
             </div>
         </div>
     </div>
+</div>
+<?php endif; ?>
+
+<!-- Meal Table -->
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="card-title">This Month Your All Meals</h4>
+                        <div>
+                           
+                        </div>
+                    </div>
+                    <div class="table-responsive mt-3" id="mealsTableContainer">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Lunch</th>
+                                    <th>Dinner</th>
+                                    <th>Guest</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- rows will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Meal Table End -->
+   </div>
 </div>
 
 <!-- Modal -->
@@ -104,7 +217,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="mealDate" class="form-label">Start Date</label>
-                        <input type="text" class="form-control" id="mealDate" name="date" required>
+                        <input type="date" class="form-control" id="mealDate" name="date" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -133,6 +246,8 @@
     </div>
 </div>
 
+<div class="notification" id="notificationContainer"></div>
+
 <script>
     $(document).ready(function() {
         var mealIdToDelete;
@@ -157,9 +272,14 @@
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
                 success: function(response) {
-                    $('#startMealModal').modal('hide');
-                    showNotification('Meal started successfully!', 'success');
-                    fetchMeals(); // Refresh the meal list
+                    if (response.status === 'success') {
+                        $('#startMealModal').modal('hide');
+                        showNotification('Meal started successfully!', 'success');
+                        fetchMeals(); // Refresh the meal list
+                    } else if (response.status === 'error') {
+                        $('#startMealModal').modal('hide');
+                        showNotification(response.message, 'danger');
+                    }
                 },
                 error: function() {
                     showNotification('Failed to start the meal.', 'danger');
@@ -248,13 +368,44 @@
             });
         }
 
+        // Fetch user's meals
+        function fetchUserMeals() {
+            $.ajax({
+                url: 'individual-meal/ajax/your-meal',
+                method: 'GET',
+                success: function(response) {
+                    displayUserMeals(response);
+                },
+                error: function() {
+                    showNotification('Failed to fetch your meals.', 'danger');
+                }
+            });
+        }
+
+        // Display user's meals in table
+        function displayUserMeals(meals) {
+            var tableBody = $('#mealsTableContainer tbody');
+            tableBody.empty(); // Clear existing rows
+
+            meals.forEach(function(meal) {
+                var row = '<tr>' +
+                            '<td>' + meal.date + '</td>' +
+                            '<td>' + meal.launch + '</td>' +
+                            '<td>' + meal.dinner + '</td>' +
+                            '<td>' + meal.guest + '</td>' +
+                            '<td>' + meal.total + '</td>' +
+                          '</tr>';
+                tableBody.append(row);
+            });
+        }
+
         // Function to show notification
         function showNotification(message, type) {
             var notification = $('<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' + 
                                   message + 
                                   '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' + 
                                  '</div>');
-            $('body').append(notification);
+            $('#notificationContainer').append(notification);
 
             setTimeout(function() {
                 notification.alert('close');
@@ -263,6 +414,7 @@
 
         // Initial fetch of meals when the page loads
         fetchMeals();
+        fetchUserMeals();
     });
 </script>
 

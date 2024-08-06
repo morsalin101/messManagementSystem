@@ -8,11 +8,11 @@ class MealController extends BaseController
     
         public function meal()
         {
-           // $mealModel = new MealModel();
             $data['page_title'] = "Meal";
+            $data['name'] =  $this->session->get('name');
             $data['role'] = $this->session->get('role');
-    
-            return view('partials/header') 
+            $data['active'] = 'meal';
+            return view('partials/header',$data) 
              .view('meal')
              .view('partials/footer');
     
@@ -36,6 +36,13 @@ class MealController extends BaseController
         
             if ($method == 'start-meal') {
                 $json = $this->request->getJSON();
+
+                $activeMeals = $mealModel->where('status', 'active')->findAll();
+                if (count($activeMeals) > 0)
+                return $this->response->setJSON(['status' => 'error', 'message' => 'You Have Already An Active Meal']);
+
+
+
                 helper('uid');
                 $unique_id = generate_uid();
                 $data = [
@@ -50,7 +57,6 @@ class MealController extends BaseController
                     return $this->response->setJSON(['status' => 'success', 'message' => 'Successfully']);
                 }
         
-                return $this->response->setJSON(['status' => 'error', 'message' => 'Add Failed']);
             }
         
             if ($method == 'update-meal') {

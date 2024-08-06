@@ -14,10 +14,13 @@ class UserController extends BaseController
          
     }
     public function dashboard()
-    {
-         $data['role'] = $this->session->get('role');
-        return view('partials/header')
-         .view('dashboard')
+    {  
+        $data['page_title'] = "Dashboard";
+        $data['name'] =  $this->session->get('name');
+        $data['role'] = $this->session->get('role');
+        $data['active'] = 'dashboard';
+        return view('partials/header',$data)
+         .view('dashboard',$data)
          .view('partials/footer');
          
     }
@@ -38,13 +41,16 @@ class UserController extends BaseController
             if ($flag > 0) {
                 $user_data = $users->where('email',$email)->first();
                 $uid = $user_data['uuid'];
+                $name = $user_data['name'];
+               
                 $this->session->set([
                     'logged_in' => true,
                     'email' => $email,
                     'uuid' => $uid,
-                    'role'=>$user_data['role']
+                    'role'=>$user_data['role'],
+                    'name'=>$name
+
                 ]);
-                 
                 return $this->response->setJSON(['status' => 'success']);
             } else {
                  return $this->response->setJSON(['status' => 'failed']);
@@ -71,10 +77,11 @@ class UserController extends BaseController
     {
         $users = new UserModel();
         $data['page_title'] = "Members";
+        $data['name'] =  $this->session->get('name');
         $data['role'] = $this->session->get('role');
-
+        $data['active'] = 'members';
         return
-        view('partials/header') 
+        view('partials/header',$data) 
          .view('members',$data)
          .view('partials/footer');
 

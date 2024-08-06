@@ -115,6 +115,22 @@ class IndividualMealController extends BaseController
                 return $this->response->setJSON(['status' => 'failed', 'message' => 'Edit Failed']);
             }
         }
+
+        if($method=='your-meal'){
+            $individualMealModel = new IndividualMealModel();
+            $userModel = new UserModel();
+            $mealModel = new MealModel();
+            $mealData = $mealModel->where('status', 'active')->first();
+            $meal_uuid = $mealData['meal_uuid']; 
+            $uuid = $this->session->get('uuid');
+            $meal = $individualMealModel
+                    ->where('member_uuid', $uuid)
+                    ->where('meal_uuid',$meal_uuid)
+                    ->findAll();
+           
+            return $this->response->setJSON($meal);
+        }
     }
+   
 
 }

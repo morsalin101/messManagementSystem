@@ -9,8 +9,13 @@ class AllMealController extends BaseController
 {
 
    public function allMeals(){
-      return view('partials/header')
-            .view('allmeals')
+
+     $data['page_title'] = "All-Meals";
+     $data['name'] =  $this->session->get('name');
+     $data['role'] = $this->session->get('role');
+     $data['active'] = 'meal';
+      return view('partials/header',$data)
+            .view('allmeals', $data)
             .view('partials/footer');
 
    }

@@ -10,8 +10,11 @@ class MoneyController extends BaseController
 {
     public function money()
     {
-        
-        return view('partials/header')
+        $data['page_title'] = "Money";
+        $data['name'] =  $this->session->get('name');
+        $data['role'] = $this->session->get('role');
+        $data['active'] = 'money';
+        return view('partials/header',$data)
         .view('money')
         .view('partials/footer');
 
