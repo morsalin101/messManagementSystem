@@ -69,6 +69,9 @@ class IndividualMealController extends BaseController
             $uuid = $userData['uuid'];
 
             $mealData = $mealModel->where('status', 'active')->first();
+            if (!$mealData) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Please start a new meal first']);
+            }
             $meal_uuid = $mealData['meal_uuid'];
             $individualMealModel = new IndividualMealModel();
             $total = $json->launch + $json->dinner + $json->guest;
@@ -86,7 +89,7 @@ class IndividualMealController extends BaseController
     
             $flag = $individualMealModel->insert($data, false);
             if ($flag !== false) {
-                return $this->response->setJSON(['status' => 'success', 'message' => 'Successfully']);
+                return $this->response->setJSON(['status' => 'success', 'message' => 'Meal Successfully Added']);
             }
     
             return $this->response->setJSON(['status' => 'error', 'message' => 'Add Failed']);

@@ -248,7 +248,8 @@ $(document).ready(function() {
             success: function(response) {
                 $('#mealModal').modal('hide');
                 var action = formData.id ? 'updated' : 'added';
-                showNotification('Meal ' + action + ' successfully!', 'success');
+
+                showNotification(response.message, response.status === 'success' ? 'success' : 'danger');
                 fetchMembers(); // Refresh the members list
                 fetchTodaysMeals(); // Refresh today's meals list
             },

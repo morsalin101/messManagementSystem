@@ -27,6 +27,9 @@ class MoneyController extends BaseController
            $userModel = new UserModel();
            $mealModel = new MealModel();
            $mealData = $mealModel->where('status', 'active')->first();
+           if ($mealData==null) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Please start a new meal first']);
+        }
            $meal_uuid = $mealData['meal_uuid']; 
            $id = $this->request->getGet('id');
            $userData = $userModel->find($id);
@@ -46,6 +49,9 @@ class MoneyController extends BaseController
         $uuid = $userData['uuid'];
         $mealModel = new MealModel();
         $mealData = $mealModel->where('status', 'active')->first();
+        if ($mealData==null) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Please start a new meal first']);
+        }
         $meal_uuid = $mealData['meal_uuid'];
         $json = $this->request->getJSON();
 

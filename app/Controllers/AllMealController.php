@@ -23,16 +23,22 @@ class AllMealController extends BaseController
    
     public function ajax($method)
     {
-        $individualMealModel = new IndividualMealModel();
+       
     
         if ($method == 'get-all-meals') {
             // Load the models
+
+            
             $individualMealModel = new IndividualMealModel();
             $userModel = new UserModel();
-    
-            // Fetch all meals
-            $meals = $individualMealModel->findAll();
-    
+            $mealModel = new MealModel();
+            $mealData = $mealModel->where('status', 'active')->first();
+            
+           
+            $meal_uuid = $mealData['meal_uuid'];
+            
+            $meals = $individualMealModel->where('meal_uuid', $meal_uuid)->findAll();
+            
             // Initialize an array to hold the combined data
             $combinedData = [];
     

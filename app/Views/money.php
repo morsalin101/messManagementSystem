@@ -228,7 +228,11 @@
                 success: function(response) {
                     $('#moneyModal').modal('hide');
                     var action = formData.id ? 'updated' : 'added';
-                    showNotification('Money ' + action + ' successfully!', 'success');
+                    if (response.status === 'error') {
+                        showNotification(response.message, 'danger');
+                    } else {
+                        showNotification('Money ' + action + ' successfully!', 'success');
+                    }
                     fetchMembers(); // Refresh the members list
                     fetchDepositions(formData.member_id); // Refresh depositions list for the member
                 },

@@ -21,3 +21,7 @@ $routes->get('all-meals', 'AllMealController::allMeals');
 /* money route */
 $routes->get('money', 'MoneyController::money');
 $routes->match(['GET','POST','PUT','DELETE'],'money/ajax/(:any)', 'MoneyController::ajax/$1');
+
+/*bazar route*/
+$routes->get('bazar', 'BazarController::bazar');
+$routes->match(['GET','POST','PUT','DELETE'],'bazar/ajax/(:any)', 'BazarController::ajax/$1');

@@ -41,8 +41,6 @@ class MealController extends BaseController
                 if (count($activeMeals) > 0)
                 return $this->response->setJSON(['status' => 'error', 'message' => 'You Have Already An Active Meal']);
 
-
-
                 helper('uid');
                 $unique_id = generate_uid();
                 $data = [

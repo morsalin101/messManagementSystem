@@ -2,6 +2,11 @@
 
 namespace App\Controllers;
 use App\Models\UserModel;
+use App\Models\MealModel;
+use App\Models\IndividualMealModel;
+use APP\Models\BazarModel;
+use APP\Models\MoneyModel;
+
 
 
 class UserController extends BaseController
@@ -19,6 +24,48 @@ class UserController extends BaseController
         $data['name'] =  $this->session->get('name');
         $data['role'] = $this->session->get('role');
         $data['active'] = 'dashboard';
+        
+        $mealModel = new MealModel();
+        $userModel = new UserModel();
+        $individualMealModel = new IndividualMealModel();
+        $bazarModel = new BazarModel();
+        $moneyModel = new MoneyModel();
+
+       
+        
+
+        $mealData = $mealModel->where('status', 'active')->first();
+        $meal_uuid = $mealData['meal_uuid'];
+        $uuid = $this->session->get('uuid');
+       
+       
+        $meals = $individualMealModel->where('meal_uuid', $meal_uuid)
+                                     ->where('member_uuid',$uuid)
+                                     ->countAllResults();
+        //meal section
+        $data['your_total_meals'] = $meals;
+        $data['total_meals'] = $individualMealModel->where('meal_uuid', $meal_uuid)->countAllResults();
+
+        $totalDeposite = $moneyModel->select('SUM(CAST(deposite AS DECIMAL(10,2))) AS deposite_sum')
+        ->where('meal_uuid', $meal_uuid)
+        ->where('member_uuid', $uuid)
+        ->first();
+        $totalDepositeOfMeal = $moneyModel->select('SUM(CAST(deposite AS DECIMAL(10,2))) AS deposite_sum')
+        ->where('meal_uuid', $meal_uuid)
+        ->first();
+
+        // money section
+        $data['your_money'] = $totalDeposite['deposite_sum'] ?? 0;
+        $data['total_money'] = $totalDepositeOfMeal['deposite_sum'] ?? 0;
+
+        $data['meal_rate'] = (float)$data['total_money'] / $data['total_meals'];
+        $data['your_expense'] = (float)$data['meal_rate'] * $data['your_total_meals'];
+
+
+        $bazar = $bazarModel->where('meal_uuid', $meal_uuid)->findAll();
+
+
+
         return view('partials/header',$data)
          .view('dashboard',$data)
          .view('partials/footer');

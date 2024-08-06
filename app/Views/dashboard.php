@@ -376,9 +376,9 @@
                 success: function(response) {
                     displayUserMeals(response);
                 },
-                error: function() {
-                    showNotification('Failed to fetch your meals.', 'danger');
-                }
+                // error: function() {
+                //     showNotification('Failed to fetch your meals.', 'danger');
+                // }
             });
         }
 
