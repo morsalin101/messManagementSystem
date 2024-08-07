@@ -103,7 +103,7 @@
                             <i class="fa-solid fa-money-bill fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Deposit</p>
-                                <h6 class="mb-0">1234৳</h6>
+                                <h6 class="mb-0">aa</h6>
                             </div>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                             <i class="fa-solid fa-bowl-food fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Count Meal</p>
-                                <h6 class="mb-0">0</h6>
+                                <h6 class="mb-0"><aa</h6>
                             </div>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                             <i class="fa-solid fa-chart-simple fa-3x text-primary"></i> 
                             <div class="ms-3">
                                 <p class="mb-2">Meal Rate</p>
-                                <h6 class="mb-0">1234৳</h6>
+                                <h6 class="mb-0">aa</h6>
                             </div>
                         </div>
                     </div>

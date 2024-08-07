@@ -4,8 +4,8 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\MealModel;
 use App\Models\IndividualMealModel;
-use APP\Models\BazarModel;
-use APP\Models\MoneyModel;
+use App\Models\BazarModel;
+use App\Models\MoneyModel;
 
 
 
@@ -20,31 +20,47 @@ class UserController extends BaseController
     }
     public function dashboard()
     {  
-        $data['page_title'] = "Dashboard";
-        $data['name'] =  $this->session->get('name');
-        $data['role'] = $this->session->get('role');
-        $data['active'] = 'dashboard';
-        
+       
         $mealModel = new MealModel();
+    
         $userModel = new UserModel();
         $individualMealModel = new IndividualMealModel();
-        $bazarModel = new BazarModel();
-        $moneyModel = new MoneyModel();
+         $bazarModel = new BazarModel();
+         $moneyModel = new MoneyModel();
 
-       
+        $data['page_title'] = "Dashboard";
+        $data['name'] = $this->session->get('name');
+        $data['role'] =$this->session->get('role');
+        $data['active'] = 'dashboard';
         
-
+       
+       
         $mealData = $mealModel->where('status', 'active')->first();
         $meal_uuid = $mealData['meal_uuid'];
         $uuid = $this->session->get('uuid');
        
-       
+         
         $meals = $individualMealModel->where('meal_uuid', $meal_uuid)
                                      ->where('member_uuid',$uuid)
-                                     ->countAllResults();
+                                     ->findAll();
         //meal section
-        $data['your_total_meals'] = $meals;
-        $data['total_meals'] = $individualMealModel->where('meal_uuid', $meal_uuid)->countAllResults();
+       
+        $yourMeals = 0;
+        foreach ($meals as $meal) {
+            $yourMeals += (int)$meal['total'];
+        }
+        $data['your_total_meals'] = $yourMeals;
+
+      
+
+        $totalMeals = 0;
+        $meals = $individualMealModel->where('meal_uuid', $meal_uuid)->findAll();
+        foreach ($meals as $meal) {
+            $totalMeals += (int)$meal['total'];
+        }
+        $data['total_meals'] = $totalMeals;
+        print_r($data);
+        exit;
 
         $totalDeposite = $moneyModel->select('SUM(CAST(deposite AS DECIMAL(10,2))) AS deposite_sum')
         ->where('meal_uuid', $meal_uuid)
@@ -61,8 +77,9 @@ class UserController extends BaseController
         $data['meal_rate'] = (float)$data['total_money'] / $data['total_meals'];
         $data['your_expense'] = (float)$data['meal_rate'] * $data['your_total_meals'];
 
-
-        $bazar = $bazarModel->where('meal_uuid', $meal_uuid)->findAll();
+         var_dump($data);
+         exit;
+       $bazar = $bazarModel->where('meal_uuid', $meal_uuid)->findAll();
 
 
 
