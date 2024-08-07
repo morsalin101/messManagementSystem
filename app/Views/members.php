@@ -133,7 +133,7 @@
                         var row = '<tr>' +
                                   '<td>' + member.name + '</td>' +
                                   '<td>' + member.email + '</td>' +
-                                  '<td>' + member.phone + '</td>' +
+                                  '<td>0' + member.phone + '</td>' +
                                   '<td>' + member.role + '</td>' +
                                   <?php if ($role == 'manager'): ?>
                                   '<td>' +

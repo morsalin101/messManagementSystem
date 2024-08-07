@@ -6,6 +6,15 @@
     <title>User Settings</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid pt-4 px-4">
@@ -28,6 +37,11 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Notification bar -->
+    <div class="alert alert-success notification" id="notification" role="alert">
+        User data updated successfully!
     </div>
 
     <script>
@@ -73,12 +87,24 @@
                 contentType: 'application/json',
                 data: JSON.stringify({ id: userId, name: name, email: email, password: password }),
                 success: function (data) {
-                    alert('User data updated successfully');
+                    if (data.status == 'success') {
+                        showNotification('User data updated successfully!');
+                    }
                 },
                 error: function (xhr, status, error) {
                     console.error('Error updating user data:', error);
                 }
             });
+        }
+
+        function showNotification(message) {
+            var notification = $('#notification');
+            notification.text(message);
+            notification.fadeIn();
+
+            setTimeout(function () {
+                notification.fadeOut();
+            }, 3000);
         }
     </script>
 

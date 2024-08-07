@@ -36,7 +36,7 @@ class UserController extends BaseController
        
        
         $mealData = $mealModel->where('status', 'active')->first();
-        $meal_uuid = $mealData['meal_uuid'];
+        $meal_uuid = isset($mealData['meal_uuid']) ? $mealData['meal_uuid'] : null;
         $uuid = $this->session->get('uuid');
        
          
@@ -88,7 +88,12 @@ class UserController extends BaseController
          $data['total_meals'] = $totalMeals;
          $data['total_money'] = $totalDepositeSum;
          $data['total_bazar'] = $totalBazerSum;
-         $data['meal_rate'] = (float)$data['total_bazar'] / $data['total_meals'];
+            if($data['total_meals'] == 0){
+                $data['meal_rate'] = 0;
+            }else{
+            $data['meal_rate'] = (float)$data['total_bazar'] / $data['total_meals'];
+            }
+        
         //member section
 
          $data['your_total_meals'] = $yourMeals;

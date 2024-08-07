@@ -46,7 +46,7 @@ class SettingController extends BaseController
             $flag = $userModel->set($data)->where('uuid', $this->session->get('uuid'))->update();
             
             if ($flag) {
-                return $this->response->setJSON(['status' => 'success']);
+                return $this->response->setJSON(['status' => 'success', 'message' => 'Updated successfully']);
             } else {
                 return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update user data']);
             }
