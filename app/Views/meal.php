@@ -22,6 +22,7 @@
 <div class="alert notification" id="notification"></div>
 
 <div class="container-fluid pt-4 px-4">
+<?php if ($role == 'manager'): ?>
     <div class="row g-4">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card bg-light">
@@ -34,6 +35,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -46,6 +48,7 @@
             </div>
         </div>
     </div>
+<?php endif; ?>
     <div class="row g-4">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card bg-light">
@@ -68,7 +71,9 @@
                                     <th>Launch</th>
                                     <th>Dinner</th>
                                     <th>Guest</th>
+                                    <?php if ($role == 'manager'): ?>
                                     <th>Actions</th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody id="todaysMealsTable">
@@ -194,9 +199,11 @@ $(document).ready(function() {
                               '<td>' + meal.launch + '</td>' +
                               '<td>' + meal.dinner + '</td>' +
                               '<td>' + meal.guest + '</td>' +
+                              <?php if ($role == 'manager'): ?>
                               '<td>' +
                                   '<button class="btn btn-secondary btn-sm editMealButton" data-id="' + meal.id + '" data-member-id="' + meal.member_id + '" data-date="' + meal.date + '" data-launch="' + meal.launch + '" data-dinner="' + meal.dinner + '" data-guest="' + meal.guest + '">Edit Meal</button>' +
                               '</td>' +
+                                <?php endif; ?>
                           '</tr>';
                 todaysMealsTable.append(row);
             }

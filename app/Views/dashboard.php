@@ -48,7 +48,7 @@
                             <i class="fa-solid fa-money-bill fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Deposit</p>
-                                <h6 class="mb-0">1234৳</h6>
+                                <h6 class="mb-0"><?= $total_money?>৳</h6>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                             <i class="fa-solid fa-money-bills fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Expense</p>
-                                <h6 class="mb-0">1234৳</h6>
+                                <h6 class="mb-0"><?= number_format($total_bazar,3)?>৳</h6>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                             <i class="fa-solid fa-bowl-food fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Count Meal</p>
-                                <h6 class="mb-0">0</h6>
+                                <h6 class="mb-0"><?= $total_meals?></h6>
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                             <i class="fa-solid fa-chart-simple fa-3x text-primary"></i> 
                             <div class="ms-3">
                                 <p class="mb-2">Meal Rate</p>
-                                <h6 class="mb-0">1234৳</h6>
+                                <h6 class="mb-0"><?= number_format($meal_rate,3)?>৳</h6>
                             </div>
                         </div>
                     </div>
@@ -98,49 +98,62 @@
             <div class="card-body">
                 <h4 class="card-title">Your Summary</h4>
                 <div class="row">
-                    <div class="col-sm-6 col-xl-3">
+                    <div class="col-12 col-sm-6 col-xl">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa-solid fa-money-bill fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Deposit</p>
-                                <h6 class="mb-0">aa</h6>
+                                <h6 class="mb-0"><?= $your_deposite ?>৳</h6>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="col-sm-6 col-xl-3">
+                    <div class="col-12 col-sm-6 col-xl">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa-solid fa-money-bills fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Expense</p>
-                                <h6 class="mb-0">1234৳</h6>
+                                <h6 class="mb-0"><?= number_format($your_expense, 3) ?>৳</h6>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="col-sm-6 col-xl-3">
+                    <div class="col-12 col-sm-6 col-xl">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa-solid fa-money-bills fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">Meal Rate</p>
+                                <h6 class="mb-0"><?= number_format($meal_rate, 3) ?>৳</h6>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 col-sm-6 col-xl">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa-solid fa-bowl-food fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Count Meal</p>
-                                <h6 class="mb-0"><aa</h6>
+                                <h6 class="mb-0"><?= $your_total_meals ?></h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-xl-3">
+                    
+                    <div class="col-12 col-sm-6 col-xl">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa-solid fa-chart-simple fa-3x text-primary"></i> 
+                            <i class="fa-solid fa-chart-simple fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Meal Rate</p>
-                                <h6 class="mb-0">aa</h6>
+                                <p class="mb-2">Your Balance</p>
+                                <h6 class="mb-0"><?= number_format($your_balance, 3) ?></h6>
                             </div>
                         </div>
-                    </div>
+                    </div>    
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 <!-- Summary End -->
 
 <?php if ($role == 'manager'): ?>

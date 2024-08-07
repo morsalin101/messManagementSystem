@@ -36,7 +36,7 @@
 <div class="container-fluid pt-4 px-4">
    <div class="row g-4">
     <!-- Sale & Revenue End -->
-    <?php if ($role == 'manager'): ?>
+    
     <div class="container-fluid pt-4 px-4">
         <div class="row g-4">
             <button class="btn btn-primary btn-sm" id="startBazarButton">Add Today's Bazar</button>
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    <?php endif; ?>
+    
    </div>
 </div>
 

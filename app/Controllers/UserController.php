@@ -49,37 +49,55 @@ class UserController extends BaseController
         foreach ($meals as $meal) {
             $yourMeals += (int)$meal['total'];
         }
-        $data['your_total_meals'] = $yourMeals;
-
-      
 
         $totalMeals = 0;
         $meals = $individualMealModel->where('meal_uuid', $meal_uuid)->findAll();
         foreach ($meals as $meal) {
             $totalMeals += (int)$meal['total'];
         }
-        $data['total_meals'] = $totalMeals;
-        print_r($data);
-        exit;
+       
+        $totalDeposite = $moneyModel
+            ->where('meal_uuid', $meal_uuid)
+            ->where('member_uuid', $uuid)
+            ->findAll();
 
-        $totalDeposite = $moneyModel->select('SUM(CAST(deposite AS DECIMAL(10,2))) AS deposite_sum')
-        ->where('meal_uuid', $meal_uuid)
-        ->where('member_uuid', $uuid)
-        ->first();
-        $totalDepositeOfMeal = $moneyModel->select('SUM(CAST(deposite AS DECIMAL(10,2))) AS deposite_sum')
-        ->where('meal_uuid', $meal_uuid)
-        ->first();
+        $yourDepositeSum = 0;
+        foreach ($totalDeposite as $deposite) {
+            $yourDepositeSum += (int)$deposite['deposite'];
+        }
+        
 
-        // money section
-        $data['your_money'] = $totalDeposite['deposite_sum'] ?? 0;
-        $data['total_money'] = $totalDepositeOfMeal['deposite_sum'] ?? 0;
+        $totalDepositeOfMeal = $moneyModel
+            ->where('meal_uuid', $meal_uuid)
+            ->findAll();
 
-        $data['meal_rate'] = (float)$data['total_money'] / $data['total_meals'];
-        $data['your_expense'] = (float)$data['meal_rate'] * $data['your_total_meals'];
+        $totalDepositeSum = 0;
+        foreach ($totalDepositeOfMeal as $deposite) {
+            $totalDepositeSum += (int)$deposite['deposite'];
+        }
 
-         var_dump($data);
-         exit;
-       $bazar = $bazarModel->where('meal_uuid', $meal_uuid)->findAll();
+        $totalBazer = $bazarModel
+            ->where('meal_uuid', $meal_uuid)
+            ->findAll();
+        $totalBazerSum = 0;
+        foreach ($totalBazer as $bazer) {
+            $totalBazerSum += (int)$bazer['total'];
+        }    
+       
+        //manager section
+         $data['total_meals'] = $totalMeals;
+         $data['total_money'] = $totalDepositeSum;
+         $data['total_bazar'] = $totalBazerSum;
+         $data['meal_rate'] = (float)$data['total_bazar'] / $data['total_meals'];
+        //member section
+
+         $data['your_total_meals'] = $yourMeals;
+         $data['your_deposite'] = $yourDepositeSum;
+         $data['your_expense'] = (float)$data['meal_rate'] * $data['your_total_meals'];
+         $data['your_balance'] = $data['your_deposite'] - $data['your_expense'];
+       
+             
+       //$bazar = $bazarModel->where('meal_uuid', $meal_uuid)->findAll();
 
 
 
@@ -144,8 +162,7 @@ class UserController extends BaseController
         $data['name'] =  $this->session->get('name');
         $data['role'] = $this->session->get('role');
         $data['active'] = 'members';
-        return
-        view('partials/header',$data) 
+        return view('partials/header',$data) 
          .view('members',$data)
          .view('partials/footer');
 

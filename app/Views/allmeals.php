@@ -45,7 +45,9 @@
                                     <th>Dinner</th>
                                     <th>Guest</th>
                                     <th>Total</th>
+                                    <?php if ($role == 'manager'): ?>
                                     <th>Actions</th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody id="todaysMealsTable">
@@ -148,10 +150,12 @@
                               '<td>' + meal.dinner + '</td>' +
                               '<td>' + meal.guest + '</td>' +
                               '<td>' + meal.total + '</td>' +
+                              <?php if ($role == 'manager'): ?>
                               '<td>' +
                                   '<button class="btn btn-secondary btn-sm editMealButton" data-id="' + meal.id + '" data-member-id="' + meal.member_id + '" data-date="' + meal.date + '" data-launch="' + meal.launch + '" data-dinner="' + meal.dinner + '" data-guest="' + meal.guest + '">Edit Meal</button> ' +
                                   '<button class="btn btn-danger btn-sm deleteMealButton" data-id="' + meal.id + '">Delete</button>' +
                               '</td>' +
+                                <?php endif; ?>
                           '</tr>';
                 mealsTable.append(row);
             });

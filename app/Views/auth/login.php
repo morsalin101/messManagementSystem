@@ -49,10 +49,13 @@
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <a href="index.html" class="">
-                                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+                                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>YOUR MEAL</h3>
                             </a>
                             <h3>Sign In</h3>
+                            
                         </div>
+                       <p> If you are a member then your default password is 123</p><br>
+                    
                         <form id="loginForm">
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control" id="email" placeholder="name@example.com" required>

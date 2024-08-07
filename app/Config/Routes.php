@@ -25,3 +25,7 @@ $routes->match(['GET','POST','PUT','DELETE'],'money/ajax/(:any)', 'MoneyControll
 /*bazar route*/
 $routes->get('bazar', 'BazarController::bazar');
 $routes->match(['GET','POST','PUT','DELETE'],'bazar/ajax/(:any)', 'BazarController::ajax/$1');
+
+/*setting route*/
+$routes->get('setting', 'SettingController::setting');
+$routes->match(['GET','POST','PUT','DELETE'],'setting/ajax/(:any)', 'SettingController::ajax/$1');

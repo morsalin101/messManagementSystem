@@ -26,7 +26,9 @@
                                 <h2 ></h2>
                             </div>
                             <div class="col-auto">
+                            <?php if ($role == 'manager'): ?>
                                 <button class="btn btn-info btn-add-member" data-bs-toggle="modal" data-bs-target="#addMemberModal"><i class="bi bi-plus-circle"></i>Add Member</button>
+                            <?php endif; ?>
                             </div>
                         </div>
                             <tr>
@@ -34,7 +36,9 @@
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Role</th>
+                                <?php if ($role == 'manager'): ?>
                                 <th scope="col">Action</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,10 +55,12 @@
 <div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+        
             <div class="modal-header">
                 <h5 class="modal-title" id="addMemberModalLabel">Add Member</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>              
             </div>
+           
             <div class="modal-body">
                 <form id="addMemberForm">
                     <input type="hidden" id="memberModalAction" value="add">

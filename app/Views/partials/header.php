@@ -48,7 +48,7 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>MORSALIN</h3>
+                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>YOUR MEAL</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -56,14 +56,14 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><?= $name ?></h6>
-                        <span><?= $role ?></span>
+                        <h6 class="mb-0"><?= ucfirst($name) ?></h6>
+                        <span><?= ucfirst($role) ?></span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                 <a href="<?= base_url('dashboard') ?>" class="nav-item nav-link <?= ($active == 'dashboard') ? 'active' : '' ?>"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="<?= base_url('members') ?>" class="nav-item nav-link <?= ($active == 'members') ? 'active' : '' ?>"><i class="bi bi-people"></i>All Member</a>
-                <a href="<?= base_url('meal') ?>" class="nav-item nav-link <?= ($active == 'meal') ? 'active' : '' ?>"><i class="fa-solid fa-burger"></i>Add Meal</a>
+                <a href="<?= base_url('members') ?>" class="nav-item nav-link <?= ($active == 'members') ? 'active' : '' ?>"><i class="bi bi-people"></i>Member</a>
+                <a href="<?= base_url('meal') ?>" class="nav-item nav-link <?= ($active == 'meal') ? 'active' : '' ?>"><i class="fa-solid fa-burger"></i>Meal</a>
                 <a href="<?= base_url('money') ?>" class="nav-item nav-link <?= ($active == 'money') ? 'active' : '' ?>"><i class="bi bi-cash-stack"></i>Deposite</a>
                  <a href="<?= base_url('bazar') ?>" class="nav-item nav-link <?= ($active == 'bazar') ? 'active' : '' ?>"><i class="bi bi-bag-check-fill"></i>Bazar</a>
                     
@@ -83,19 +83,17 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
+             
                 <div class="navbar-nav align-items-center ms-auto">
                     
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="<?= base_url()?>public/template/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"><?= $name ?></span>
+                            <span class="d-none d-lg-inline-flex"><?= ucfirst($name) ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="<?= base_url('dashboard')?>" class="dropdown-item">My Profile</a>
+                            <a href="<?= base_url('setting')?>" class="dropdown-item">Settings</a>
                             <a href="<?= base_url('logout')?>" class="dropdown-item">Log Out</a>
                         </div>
                     </div>

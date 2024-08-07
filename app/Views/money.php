@@ -22,6 +22,7 @@
 <div class="alert notification" id="notification"></div>
 
 <div class="container-fluid pt-4 px-4">
+<?php if ($role == 'manager'): ?>
     <div class="row g-4">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card bg-light">
@@ -46,6 +47,7 @@
             </div>
         </div>
     </div>
+    <?php endif; ?>
     <div class="row g-4">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card bg-light">
