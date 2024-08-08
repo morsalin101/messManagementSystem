@@ -19,7 +19,7 @@ class IndividualMealController extends BaseController
             // Fetch the current date
             $currentDate = date('Y-m-d');
            
-        
+            
             // Fetch all meals for today
             $meals = $individualMealModel->findAll();
         
@@ -29,7 +29,8 @@ class IndividualMealController extends BaseController
             // Loop through each meal and fetch the corresponding user data
             foreach ($meals as $meal) {
                 $member_uuid = $meal['member_uuid'];
-                $user = $userModel->where('uuid', $member_uuid)->first();
+                $user = $userModel->where('uuid', $member_uuid)
+                         ->first();
         
                 // If user is found, combine the data
                 if ($user) {

@@ -138,15 +138,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-12 col-sm-6 col-xl">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa-solid fa-chart-simple fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Your Balance</p>
-                                <h6 class="mb-0"><?= number_format($your_balance, 3) ?></h6>
-                            </div>
-                        </div>
-                    </div>    
+                     
                 </div>
             </div>
         </div>

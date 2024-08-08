@@ -35,7 +35,11 @@ class AllMealController extends BaseController
             $mealData = $mealModel->where('status', 'active')->first();
             
            
-            $meal_uuid = $mealData['meal_uuid'];
+            if (isset($mealData['meal_uuid'])) {
+                $meal_uuid = $mealData['meal_uuid'];
+            } else {
+                return $this->response->setJSON(['status' => 'failed', 'message' => 'Please start a new meal to see all meals']);
+            }
             
             $meals = $individualMealModel->where('meal_uuid', $meal_uuid)->findAll();
             

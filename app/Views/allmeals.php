@@ -133,7 +133,7 @@
                     populateMealFilter(response);
                 },
                 error: function() {
-                    showNotification('Failed to fetch meals.', 'danger');
+                    showNotification(response.message, 'danger');
                 }
             });
         }
